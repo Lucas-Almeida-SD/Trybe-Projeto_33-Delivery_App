@@ -18,11 +18,11 @@ class SalesService {
   async create(sale, products) {
     const t = await sequelize.transaction();
     try {
-      const newSales = await this.model.create(sale, { transaction: t, raw: true });
+      const newSales = await this.model.create(sale, { transaction: t });
  
       await Promise.all(
         products.map((product) => 
-          this.salesProductsService.create(product, newSales.id, t)),
+          this.salesProductsService.create(product, newSales.dataValues.id, t)),
       );
  
       await t.commit();
@@ -51,20 +51,21 @@ class SalesService {
       include: [{
         model: productsModel, as: 'products', through: { attributes: [] },
       }],
-      raw: true,
     });
 
     if (!sale) throwMyError(StatusCodes.NOT_FOUND, 'Venda não encontrada');
 
-    const salesProducts = await this.salesProductsService
-      .getBySaleId(sale.id);
+    const newSale = sale.dataValues;
 
-    const { products } = sale;
+    const salesProducts = await this.salesProductsService
+      .getBySaleId(newSale.id);
+
+    const { products } = newSale;
 
     const newProducts = products.map((product, index) => (
-      { ...product, quantity: salesProducts[index].quantity }));
+      { ...product.dataValues, quantity: salesProducts[index].quantity }));
 
-    return { ...sale, products: newProducts };
+    return { ...newSale, products: newProducts };
   }
 
   async updateStatus(id, status) {
