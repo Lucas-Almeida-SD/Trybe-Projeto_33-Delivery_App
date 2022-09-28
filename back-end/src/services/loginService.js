@@ -22,17 +22,15 @@ const validateBody = (data) => {
 };
 
 const validateCredentials = async ({ email, password }) => {
-  const user = await users.findOne({ where: { email } });
+  const user = await users.findOne({ where: { email }, raw: true });
 
   if (!user) throwMyError(StatusCodes.NOT_FOUND, 'Usuário não cadastrado');
   
-  const valide = passwordService.checkPassword(password, user.password);
-
-  if (!valide) throwMyError(StatusCodes.NOT_FOUND, 'Usuário não encontrado');
+  passwordService.checkPassword(password, user.password);
 
   const token = createToken(user);
 
-  return { ...user.dataValues, token };
+  return { ...user, token };
 };
 
 module.exports = {
