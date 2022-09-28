@@ -68,6 +68,23 @@ const stubUsersFindOne = {
 	role: "customer",
 }
 
+const stubUsersFindAllByRoleCustomer = [
+  {
+    id: 1,
+    name: "Cliente Zé Birita",
+    email: "zebirita@email.com",
+    password: "1c37466c159755ce1fa181bd247cb925",
+    role: "customer",
+  },
+  {
+    id: 2,
+    name: "Cliente Zé Cachaça",
+    email: "zecachaca@email.com",
+    password: "2b5824e0a6155a2698c6f3991539fc80",
+    role: "customer",
+  },
+]
+
 module.exports = {
   requestLogin,
   requestLoginWithoutEmail,
@@ -81,4 +98,5 @@ module.exports = {
   requestCreateUserWithoutPassword,
   stubUsersCreate,
   stubUsersFindOne,
+  stubUsersFindAllByRoleCustomer,
 };
