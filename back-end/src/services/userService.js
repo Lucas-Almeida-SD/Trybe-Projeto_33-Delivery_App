@@ -4,6 +4,7 @@ const { encryptPassword } = require('../utils/md5');
 const { createToken } = require('../utils/jwt');
 const throwMyError = require('../utils/throwMyError');
 const LoginValidate = require('../validations/loginValidate');
+const UserValidate = require('../validations/userValidate');
 
 class UserService {
   constructor(model = usersModel) {
@@ -30,7 +31,9 @@ class UserService {
     return { token, ...newUser };
   }
   
-  async getAll(role) {
+  async getAllByRole(role) {
+    UserValidate.validateRole(role);
+
     const result = await this.model.findAll({
       where: { role },
     });
