@@ -3,7 +3,6 @@ const { users: usersModel } = require('../database/models/index');
 const { encryptPassword } = require('../utils/md5');
 const { createToken } = require('../utils/jwt');
 const throwMyError = require('../utils/throwMyError');
-const LoginValidate = require('../validations/loginValidate');
 const UserValidate = require('../validations/userValidate');
 
 class UserService {
@@ -12,7 +11,7 @@ class UserService {
   }
 
   async create(user) {
-    LoginValidate.validateCredentials(user);
+    UserValidate.validateFields(user);
   
     const { password } = user;
     const passwordHash = encryptPassword(password);
@@ -22,13 +21,12 @@ class UserService {
     }
 
     const newUser = await this.model.create(
-      { ...user, password: passwordHash, role: 'customer' },
-      { raw: true },
+      { ...user, password: passwordHash },
     );
     
     const token = createToken(newUser);
 
-    return { token, ...newUser };
+    return { token, ...newUser.dataValues };
   }
   
   async getAllByRole(role) {
@@ -38,17 +36,6 @@ class UserService {
       where: { role },
     });
 
-    return result;
-  }
-
-  async registerAdmin(user) {
-    console.log(user);
-    const { password } = user;
-    const passwordHash = encryptPassword(password);
-    if (await this.model.findOne({ where: { email: user.email } })) {
-      throwMyError(StatusCodes.CONFLICT, 'O usuário já possui cadastro');
-    }
-    const result = await this.model.create({ ...user, password: passwordHash });
     return result;
   }
 }
