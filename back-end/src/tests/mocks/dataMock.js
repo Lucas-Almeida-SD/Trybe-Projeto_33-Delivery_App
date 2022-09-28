@@ -23,10 +23,25 @@ const requestLoginIncorrectPassword = {
 }
 
 const stubLoginFindOne = {
-  id: 3,
+  id: 1,
 	name: "Cliente Zé Birita",
 	email: "zebirita@email.com",
 	password: "1c37466c159755ce1fa181bd247cb925",
+	role: "customer",
+}
+
+// Users ------------------------------------------------------------------
+const requestCreateUser = {
+  name: 'Cliente Zé Birita',
+  email: 'zebirita@email.com',
+  password: '$#zebirita#$',
+}
+
+const stubUsersCreate = {
+  id: 1,
+  name: 'Cliente Zé Birita',
+  email: 'zebirita@email.com',
+  password: '1c37466c159755ce1fa181bd247cb925',
 	role: "customer",
 }
 
@@ -37,4 +52,6 @@ module.exports = {
   requestLoginNonExistentUser,
   requestLoginIncorrectPassword,
   stubLoginFindOne,
+  requestCreateUser,
+  stubUsersCreate,
 };
