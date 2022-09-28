@@ -11,9 +11,9 @@ class UserController {
     res.status(201).json(result);
   }
   
-  async getAll(req, res) {
+  async getAllByRole(req, res) {
     const { role } = req.params;
-    const result = await this.service.getAll(role);
+    const result = await this.service.getAllByRole(role);
     res.status(200).json(result);
   }
   
