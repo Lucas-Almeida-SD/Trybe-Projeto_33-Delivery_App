@@ -20,11 +20,14 @@ class UserService {
       throwMyError(StatusCodes.CONFLICT, 'O usuário já possui cadastro');
     }
 
-    const newUser = await this.model.create({ ...user, password: passwordHash, role: 'customer' });
+    const newUser = await this.model.create(
+      { ...user, password: passwordHash, role: 'customer' },
+      { raw: true },
+    );
     
-    const token = createToken(newUser.dataValues);
+    const token = createToken(newUser);
 
-    return { token, ...newUser.dataValues };
+    return { token, ...newUser };
   }
   
   async getAll(role) {
