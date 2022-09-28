@@ -37,9 +37,9 @@ describe('Testes da rota "POST /user"', () => {
     });
 
     it('Retorna os dados do usuário no corpo da response', () => {
-      expect(response.body).to.have.property('id', dataMock.stubUsersCreate.id);
-      expect(response.body).to.have.property('name', dataMock.stubUsersCreate.name);
-      expect(response.body).to.have.property('email', dataMock.stubUsersCreate.email);
+      expect(response.body).to.have.property('id', dataMock.stubUsersCreate.dataValues.id);
+      expect(response.body).to.have.property('name', dataMock.stubUsersCreate.dataValues.name);
+      expect(response.body).to.have.property('email', dataMock.stubUsersCreate.dataValues.email);
       expect(response.body).to.have.property('token');
       expect(response.body.token).to.be.a('string');
     });
