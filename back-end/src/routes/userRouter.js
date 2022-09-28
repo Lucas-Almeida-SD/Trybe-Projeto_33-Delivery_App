@@ -10,6 +10,6 @@ router.get('/user/:role', (req, res) => UserController.getAllByRole(req, res));
 router.post(
   '/user/admin', 
   authenticationMiddleware,
-  (req, res) => UserController.registerAdmin(req, res),
+  (req, res) => UserController.create(req, res),
 );
 module.exports = router;
