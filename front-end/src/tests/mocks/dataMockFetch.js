@@ -1,25 +1,28 @@
 import products from '../helpers/products';
+import sales from '../helpers/sales';
+import users from '../helpers/users';
 
 const loginURL = 'http://localhost:3001/login';
 const getAllProductsURL = 'http://localhost:3001/products';
+const getAllSales = 'http://localhost:3001/sales';
 
-const mockResponseSuccessLoginCustomer = {
-  id: 3,
-  name: 'Cliente Zé Birita',
-  email: 'zebirita@email.com',
-  password: '1c37466c159755ce1fa181bd247cb925',
-  role: 'customer',
-};
-
-const mockFetchSuccess = (url) => {
+const mockFetchSuccess = (url, options) => {
   if (url === loginURL) {
+    const findUser = users.find((user) => user.email === JSON.parse(options.body).email);
     return Promise.resolve({
-      json: () => Promise.resolve(mockResponseSuccessLoginCustomer),
+      json: () => Promise.resolve(findUser),
     });
   }
+
   if (url === getAllProductsURL) {
     return Promise.resolve({
       json: () => Promise.resolve(products),
+    });
+  }
+
+  if (url === getAllSales) {
+    return Promise.resolve({
+      json: () => Promise.resolve(sales),
     });
   }
 };
