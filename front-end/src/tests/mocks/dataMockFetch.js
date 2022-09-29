@@ -4,8 +4,9 @@ import users from '../helpers/users';
 
 const loginURL = 'http://localhost:3001/login';
 const getAllProductsURL = 'http://localhost:3001/products';
-const getAllSales = 'http://localhost:3001/sales';
+const getAllSalesByCustomer = 'http://localhost:3001/sales';
 const createUser = 'http://localhost:3001/user';
+const getAllSalesBySeller = 'http://localhost:3001/sales/seller';
 
 const mockFetchSuccess = (url, options) => {
   if (url === loginURL) {
@@ -21,7 +22,7 @@ const mockFetchSuccess = (url, options) => {
     });
   }
 
-  if (url === getAllSales) {
+  if (url === getAllSalesByCustomer) {
     return Promise.resolve({
       json: () => Promise.resolve(sales),
     });
@@ -30,6 +31,12 @@ const mockFetchSuccess = (url, options) => {
   if (url === createUser) {
     return Promise.resolve({
       json: () => Promise.resolve(users[2]),
+    });
+  }
+
+  if (url === getAllSalesBySeller) {
+    return Promise.resolve({
+      json: () => Promise.resolve(sales),
     });
   }
 };
