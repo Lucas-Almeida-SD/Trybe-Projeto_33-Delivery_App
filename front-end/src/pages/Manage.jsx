@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
-import Button from 'react-bootstrap/esm/Button';
+// import Button from 'react-bootstrap/esm/Button';
 import Input from '../components/Input';
 import getFromLocalStorage from '../helpers/getFromLocalStorage';
 import Notification from '../components/Notification';
@@ -91,7 +91,7 @@ function Manage() {
             <option value="seller">Vendedor</option>
             <option value="administrator">Administrador</option>
           </select>
-          <Button
+          <button
             className={ `bg-green-500 rounded h-12 w-36
           hover:bg-green-400 disabled:bg-zinc-600` }
             type="submit"
@@ -99,7 +99,7 @@ function Manage() {
             disabled={ !formFieldsAreValid }
           >
             Cadastrar
-          </Button>
+          </button>
         </form>
         {(errorMessage) && (
           <Notification
