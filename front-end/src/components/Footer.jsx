@@ -9,7 +9,6 @@ export default function Footer(props) {
   const { shoppingCart, existeFooter } = props;
 
   const totalPrice = calculatesTotalPrice(shoppingCart);
-  console.log(totalPrice <= 0);
 
   return (
     <div>

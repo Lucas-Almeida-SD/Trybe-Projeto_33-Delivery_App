@@ -22,7 +22,6 @@ function SellerOrders() {
     salesRequest();
   }, []);
 
-  console.log(sales);
   console.log(messageError);
 
   return (

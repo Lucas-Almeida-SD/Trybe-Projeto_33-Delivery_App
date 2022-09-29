@@ -29,7 +29,7 @@ function ProductCheckoutTableaddressDetails() {
       )),
     };
     const request = await requestCreateSales(sale, user.token);
-    console.log(request);
+
     if (!request.message) {
       return history.push(`/customer/orders/${request.id}`);
     }

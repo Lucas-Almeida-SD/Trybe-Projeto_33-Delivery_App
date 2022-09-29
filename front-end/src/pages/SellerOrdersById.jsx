@@ -34,7 +34,6 @@ function SellerOrdersById() {
     setSale(requestNewSale);
   };
 
-  console.log(sale);
   const dataTestSaleId = 'seller_order_details__element-order-details-label-order-id';
   const dataTestSaleDate = 'seller_order_details__element-order-details-label-order-date';
   const dataTestSaleStatus = 'seller_order_details__'

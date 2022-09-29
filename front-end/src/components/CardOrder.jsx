@@ -5,14 +5,13 @@ import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
 
 export default function CardOrder(props) {
   const { sales, page } = props;
-  console.log(sales);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
     const format = `
     ${newDate.getDate()}/${(newDate.getMonth() + 1)
   .toString().padStart(2, '0')}/${newDate.getFullYear()}`;
-    console.log(format);
+
     return format;
   };
   const history = useHistory();
