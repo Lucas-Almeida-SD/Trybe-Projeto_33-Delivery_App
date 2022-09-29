@@ -21,18 +21,17 @@ function Register() {
       registerFormValidate.validateEmail(email),
       registerFormValidate.validatePassword(password),
     ];
-    console.log(registerFormFields);
+
     setFormFieldsAreValid(registerFormFields.every((field) => field));
   }, [name, email, password]);
 
   const handleSubmit = async (e) => {
-    console.log(e);
     e.preventDefault();
     if (name && email && password) {
       const user = await requestCreateUser(name, email, password);
       if (!user.message) {
         localStorage.setItem('user', JSON.stringify(user));
-        history.push(userRoutes[user.role]);
+        return history.push(userRoutes[user.role]);
       }
       setErrorMessage(user.message);
     }
