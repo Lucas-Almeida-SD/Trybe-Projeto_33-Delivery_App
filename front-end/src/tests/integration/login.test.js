@@ -5,6 +5,7 @@ import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../../App';
 import dataMockLogin from '../mocks/dataMockLogin';
 import mockFetch from '../mocks/dataMockFetch';
+import users from '../helpers/users';
 
 describe('Testes da página de Login', () => {
   const dataTestInputEmail = 'common_login__input-email';
@@ -24,7 +25,7 @@ describe('Testes da página de Login', () => {
 
     expect(pathname).toBe('/login');
   });
-    
+
   it('Deve possuir um elemento input para o email', () => {
     renderWithRouter(<App />);
 
@@ -81,10 +82,11 @@ describe('Testes da página de Login', () => {
     expect(buttonLogin).toBeDisabled();
   });
 
-  it('Redireciona o usuário (consumidor) para tela de produtos se as credenciais forem válidas', async () => {
-    
-    const { history } = renderWithRouter(<App />);
+  it(`Redireciona o usuário (consumidor) para tela de produtos se as 
+  credenciais forem válidas`, async () => {
     global.fetch = jest.fn(mockFetch.mockFetchSuccess);
+
+    const { history } = renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(dataTestInputEmail);
     userEvent.type(inputEmail, dataMockLogin.validLoginInputCustomer.email);
@@ -102,9 +104,62 @@ describe('Testes da página de Login', () => {
     expect(history.location.pathname).toBe('/customer/products');
   });
 
+  it(`Redireciona o usuário (consumidor) para tela de produtos se já tiver 
+  feito login anteriormente`, async () => {
+    localStorage.setItem('user', JSON.stringify(users[2]));
+    global.fetch = jest.fn(mockFetch.mockFetchSuccess);
+
+    const { history } = renderWithRouter(<App />);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/customer/products');
+    });
+  });
+
+  it(`Redireciona o usuário (vendedor) para tela de pedidos se as 
+  credenciais forem válidas`, async () => {
+    global.fetch = jest.fn(mockFetch.mockFetchSuccess);
+
+    const { history } = renderWithRouter(<App />);
+
+    const inputEmail = screen.getByTestId(dataTestInputEmail);
+    userEvent.type(inputEmail, dataMockLogin.validLoginInputSeller.email);
+
+    const inputPassword = screen.getByTestId(dataTestInputPassword);
+    userEvent.type(inputPassword, dataMockLogin.validLoginInputSeller.password);
+
+    const buttonLogin = screen.getByTestId(dataTestButtonLogin);
+    userEvent.click(buttonLogin);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/seller/orders');
+    });
+  });
+
+  it(`Redireciona o usuário (administrador) para tela de gerenciamento se as 
+  credenciais forem válidas`, async () => {
+    global.fetch = jest.fn(mockFetch.mockFetchSuccess);
+
+    const { history } = renderWithRouter(<App />);
+
+    const inputEmail = screen.getByTestId(dataTestInputEmail);
+    userEvent.type(inputEmail, dataMockLogin.validLoginInputAdmin.email);
+
+    const inputPassword = screen.getByTestId(dataTestInputPassword);
+    userEvent.type(inputPassword, dataMockLogin.validLoginInputAdmin.password);
+
+    const buttonLogin = screen.getByTestId(dataTestButtonLogin);
+    userEvent.click(buttonLogin);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/admin/manage');
+    });
+  });
+
   it('Exibe mensagem de erro se o usuário não for cadastrado', async () => {
-    renderWithRouter(<App />);
     global.fetch = jest.fn(mockFetch.mockFetchFailed);
+
+    renderWithRouter(<App />);
 
     const inputEmail = screen.getByTestId(dataTestInputEmail);
     userEvent.type(inputEmail, dataMockLogin.validLoginInputCustomer.email);
@@ -118,7 +173,7 @@ describe('Testes da página de Login', () => {
     await waitFor(() => {
       const notification = screen.getByTestId(dataTestInvalidEmail);
       expect(notification).toBeInTheDocument();
-    })
+    });
   });
 
   it('Ao clicar no botão de fazer registro, redireciona para tela de registro', () => {
