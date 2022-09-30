@@ -47,6 +47,12 @@ const mockFetchFailed = (url) => {
       json: () => Promise.resolve({ message: 'Usuário não cadastrado' }),
     });
   }
+
+  if (url === createUser) {
+    return Promise.resolve({
+      json: () => Promise.resolve({ message: 'O usuário já possui cadastro' }),
+    });
+  }
 };
 
 export default {
