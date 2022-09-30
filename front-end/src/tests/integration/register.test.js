@@ -16,6 +16,7 @@ describe('Testes da tela de Registro', () => {
   const dataTestInputEmailRegister = 'common_register__input-email';
   const dataTestInputPasswordRegister = 'common_register__input-password';
   const dataTestButtonCreateRegister = 'common_register__button-register';
+  const dataTestInvalidRegister = 'common_register__element-invalid_register';
 
   it('Deve renderizar na rota "/register', () => {
     const { history } = renderWithRouter(<App />);
@@ -134,5 +135,33 @@ describe('Testes da tela de Registro', () => {
     userEvent.type(inputPassword, dataMockRegister.invalidInputRegister.password);
 
     expect(buttonCreateRegister).toBeDisabled();
+  });
+
+  it('Exibe mensagem de erro se o usuário ja possuir cadastro', async () => {
+    global.fetch = jest.fn(dataMockFetch.mockFetchFailed);
+
+    const { history } = renderWithRouter(<App />);
+
+    const buttonRegisterLogin = screen.getByTestId(dataTestButtonRegisterLogin);
+    userEvent.click(buttonRegisterLogin);
+
+    expect(history.location.pathname).toBe('/register');
+
+    const inputName = screen.getByTestId(dataTestInputNameRegister);
+    const inputEmail = screen.getByTestId(dataTestInputEmailRegister);
+    const inputPassword = screen.getByTestId(dataTestInputPasswordRegister);
+    const buttonCreateRegister = screen.getByTestId(dataTestButtonCreateRegister);
+
+    userEvent.type(inputName, dataMockRegister.validInputRegister.name);
+    userEvent.type(inputEmail, dataMockRegister.validInputRegister.email);
+    userEvent.type(inputPassword, dataMockRegister.validInputRegister.password);
+
+    expect(buttonCreateRegister).toBeEnabled();
+    userEvent.click(buttonCreateRegister);
+
+    await waitFor(() => {
+      const notification = screen.getByTestId(dataTestInvalidRegister);
+      expect(notification).toBeInTheDocument();
+    });
   });
 });
