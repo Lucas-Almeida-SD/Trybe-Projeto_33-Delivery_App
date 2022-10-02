@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import MyContext from '../contexts/MyContext';
 import ProductCheckoutTableRow from '../components/ProductCheckoutTableRow';
 import calculatesTotalPrice from '../helpers/calculatesTotalPrice';
 import Header from '../components/Header';
@@ -9,7 +8,6 @@ import getFromLocalStorage from '../helpers/getFromLocalStorage';
 import requestUpdateSaleStatus from '../services/requestUpdateSaleStatus';
 
 function CustomerOrders() {
-  const { sellers } = useContext(MyContext);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [dates, setDates] = useState('');
   const [salesById, setSalesById] = useState({});
@@ -51,15 +49,13 @@ function CustomerOrders() {
         >
           {salesById?.id }
         </h2>
-        {sellers?.map((ele, i) => (
-          <div key={ i }>
-            <h2
-              data-testid={ dataIdName }
-            >
-              {ele.name}
-            </h2>
-          </div>
-        ))}
+        <div>
+          <h2
+            data-testid={ dataIdName }
+          >
+            {salesById.seller?.name}
+          </h2>
+        </div>
         <h2 data-testid={ dataIdDate }>
           {dates || ''}
         </h2>
