@@ -366,10 +366,10 @@ describe('Testes da página de Checkout', () => {
       expect(history.location.pathname).toBe(routes.customerCheckout);
     });
 
-    const firstProduct = sale.products[0];
+    const firstSaleProduct = sale.products[0];
 
     const checkoutElementOrderTableName = screen
-      .getByText(firstProduct.name);
+      .getByText(firstSaleProduct.name);
 
     expect(checkoutElementOrderTableName).toBeInTheDocument();
 
@@ -378,8 +378,52 @@ describe('Testes da página de Checkout', () => {
     userEvent.click(checkoutElementOrderTableRemove);
 
     const newCheckoutElementOrderTableName = screen
-      .queryByText(firstProduct.name);
+      .queryByText(firstSaleProduct.name);
 
     expect(newCheckoutElementOrderTableName).toBeNull();
+  });
+
+  it('Deve ser possível finalizar o pedido e ser redirecionado para a página de detalhes do pedido', async () => {
+    global.fetch = jest.fn(dataMockFetch.mockFetchSuccess);
+
+    const { history } = renderWithRouter(<App />);
+
+    const inputEmail = screen.getByTestId(dataTestId.inputEmailLogin);
+    const inputPassword = screen.getByTestId(dataTestId.inputPasswordLogin);
+    const buttonLogin = screen.getByTestId(dataTestId.buttonLogin);
+
+    userEvent.type(inputEmail, dataMockLogin.validLoginInputCustomer.email);
+    userEvent.type(inputPassword, dataMockLogin.validLoginInputCustomer.password);
+    userEvent.click(buttonLogin);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe(routes.customerProducts);
+    });
+
+    sale.products.forEach((product) => {
+      const productInputQuantity = screen.getByTestId(dataTestId.productInputQuantityById(product.id));
+
+      userEvent.type(productInputQuantity, `${product.quantity}`);
+    });
+ 
+    const productCheckoutBtnCart = screen.getByTestId(dataTestId.productCheckoutBtnCart);
+    
+    userEvent.click(productCheckoutBtnCart);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe(routes.customerCheckout);
+    });
+
+    const checkoutInputAddress = screen.getByTestId(dataTestId.checkoutInputAddress);
+    const checkoutInputAddressNumber = screen.getByTestId(dataTestId.checkoutInputAddressNumber);
+    const checkoutBtnSubmitOrder = screen.getByTestId(dataTestId.checkoutBtnSubmitOrder);
+
+    userEvent.type(checkoutInputAddress, sale.deliveryAddress);
+    userEvent.type(checkoutInputAddressNumber, sale.deliveryNumber);
+    userEvent.click(checkoutBtnSubmitOrder);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe(routes.customerOrdersById(sale.id));
+    });
   });
 });
