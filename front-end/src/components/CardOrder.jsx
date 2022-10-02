@@ -2,18 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
+import convertDate from '../helpers/convertDate';
 
 export default function CardOrder(props) {
   const { sales, page } = props;
 
-  const formatDate = (date) => {
-    const newDate = new Date(date);
-    const format = `
-    ${newDate.getDate()}/${(newDate.getMonth() + 1)
-  .toString().padStart(2, '0')}/${newDate.getFullYear()}`;
-
-    return format;
-  };
   const history = useHistory();
 
   const redirect = (element) => history.push(`/${page}/orders/${element.id}`);
@@ -33,7 +26,7 @@ export default function CardOrder(props) {
               {element.status}
             </p>
             <p data-testid={ `${page}_orders__element-order-date-${element.id}` }>
-              {formatDate(element.saleDate)}
+              {convertDate(element.saleDate)}
             </p>
             <p data-testid={ `${page}_orders__element-card-price-${element.id}` }>
               {convertToBrazilianCurrency(element.totalPrice)}
