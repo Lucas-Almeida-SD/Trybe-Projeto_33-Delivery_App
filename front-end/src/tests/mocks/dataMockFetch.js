@@ -4,18 +4,35 @@ import users from '../helpers/users';
 import sellers from '../helpers/sellers';
 
 const loginURL = 'http://localhost:3001/login';
+const createUserURL = 'http://localhost:3001/user';
+const createSaleURL = 'http://localhost:3001/sales';
 const getAllProductsURL = 'http://localhost:3001/products';
-const getAllSalesByCustomer = 'http://localhost:3001/sales';
-const createUser = 'http://localhost:3001/user';
-const getAllSalesBySeller = 'http://localhost:3001/sales/seller';
-const getSaleById = /^http:\/\/localhost:3001\/sales\/[0-9]{1,}$/;
-const getAllSellers = 'http://localhost:3001/user/seller';
+const getAllSalesByCustomerURL = 'http://localhost:3001/sales';
+const getAllSalesBySellerURL = 'http://localhost:3001/sales/seller';
+const getSaleByIdURL = /^http:\/\/localhost:3001\/sales\/[0-9]{1,}$/;
+const getAllSellersURL = 'http://localhost:3001/user/seller';
 
+const methodGET = 'GET';
+const methodPOST = 'POST';
+
+// eslint-disable-next-line react-func/max-lines-per-function
 const mockFetchSuccess = (url, options) => {
   if (url === loginURL) {
     const findUser = users.find((user) => user.email === JSON.parse(options.body).email);
     return Promise.resolve({
       json: () => Promise.resolve(findUser),
+    });
+  }
+
+  if (url === createUserURL) {
+    return Promise.resolve({
+      json: () => Promise.resolve(users[2]),
+    });
+  }
+
+  if (url === createSaleURL && options.method === methodPOST) {
+    return Promise.resolve({
+      json: () => Promise.resolve(sales[0]),
     });
   }
 
@@ -25,25 +42,19 @@ const mockFetchSuccess = (url, options) => {
     });
   }
 
-  if (url === getAllSalesByCustomer) {
+  if (url === getAllSalesByCustomerURL && options.method === methodGET) {
     return Promise.resolve({
       json: () => Promise.resolve(sales),
     });
   }
 
-  if (url === createUser) {
-    return Promise.resolve({
-      json: () => Promise.resolve(users[2]),
-    });
-  }
-
-  if (url === getAllSalesBySeller) {
+  if (url === getAllSalesBySellerURL) {
     return Promise.resolve({
       json: () => Promise.resolve(sales),
     });
   }
 
-  if (url === getAllSellers) {
+  if (url === getAllSellersURL) {
     return Promise.resolve({
       json: () => Promise.resolve(sellers),
     });
@@ -52,9 +63,11 @@ const mockFetchSuccess = (url, options) => {
   const splitURL = url.split('/');
   const id = splitURL[splitURL.length - 1];
 
-  if (url === getSaleById) {
+  if (getSaleByIdURL.test(url)) {
+    const findSale = sales.find((sale) => sale.id === Number(id));
+
     return Promise.resolve({
-      json: () => Promise.resolve(sales[id]),
+      json: () => Promise.resolve(findSale),
     });
   }
 };
@@ -66,7 +79,7 @@ const mockFetchFailed = (url) => {
     });
   }
 
-  if (url === createUser) {
+  if (url === createUserURL) {
     return Promise.resolve({
       json: () => Promise.resolve({ message: 'O usuário já possui cadastro' }),
     });
