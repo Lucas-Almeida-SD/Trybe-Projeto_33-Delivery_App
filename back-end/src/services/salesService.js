@@ -1,6 +1,10 @@
 const Sequelize = require('sequelize');
 const { StatusCodes } = require('http-status-codes');
-const { sales: salesModel, products: productsModel } = require('../database/models');
+const { 
+  sales: salesModel,
+  products: productsModel,
+  users: usersModel,
+} = require('../database/models');
 const SalesProductsService = require('./salesProductsService');
 const config = require('../database/config/config');
 const throwMyError = require('../utils/throwMyError');
@@ -48,9 +52,10 @@ class SalesService {
   async getById(id) {
     const sale = await this.model.findOne({
       where: { id },
-      include: [{
-        model: productsModel, as: 'products', through: { attributes: [] },
-      }],
+      include: [
+        { model: productsModel, as: 'products', through: { attributes: [] } },
+        { model: usersModel, as: 'seller', attributes: ['name'] },
+      ],
     });
 
     if (!sale) throwMyError(StatusCodes.NOT_FOUND, 'Venda não encontrada');
