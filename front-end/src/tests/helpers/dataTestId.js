@@ -30,3 +30,32 @@ export const productInputQuantityById = (id) => (
 export const productCheckoutBtnCart = 'customer_products__button-cart';
 
 export const productCheckoutBtnValue = 'customer_products__checkout-bottom-value';
+
+export const checkoutElementOrderTableItemNumber = (index) => (
+  `customer_checkout__element-order-table-item-number-${index}`);
+
+export const checkoutElementOrderTableName = (index) => (
+  `customer_checkout__element-order-table-name-${index}`);
+
+export const checkoutElementOrderTableQuantity = (index) => (
+  `customer_checkout__element-order-table-quantity-${index}`);
+
+export const checkoutElementOrderTableUnityPrice = (index) => (
+  `customer_checkout__element-order-table-unit-price-${index}`);
+
+export const checkoutElementOrderTableSubTotal = (index) => (
+  `customer_checkout__element-order-table-sub-total-${index}`);
+
+export const checkoutElementOrderTableRemove = (index) => (
+  `customer_checkout__element-order-table-remove-${index}`);
+
+export const checkoutElementOrderTotalPrice = (
+  'customer_checkout__element-order-total-price');
+
+export const checkoutSelectSeller = 'customer_checkout__select-seller';
+
+export const checkoutInputAddress = 'customer_checkout__input-address';
+
+export const checkoutInputAddressNumber = 'customer_checkout__input-address-number';
+
+export const checkoutBtnSubmitOrder = 'customer_checkout__button-submit-order';
