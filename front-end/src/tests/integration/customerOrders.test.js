@@ -10,7 +10,7 @@ import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
 import sales from '../helpers/sales';
 import convertDate from '../helpers/convertDate';
 
-describe('Testes da página de Detalhes do Pedido', () => {
+describe('Testes da página de Pedidos do Consumidor', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
