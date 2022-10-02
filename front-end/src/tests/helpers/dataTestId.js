@@ -59,3 +59,15 @@ export const checkoutInputAddress = 'customer_checkout__input-address';
 export const checkoutInputAddressNumber = 'customer_checkout__input-address-number';
 
 export const checkoutBtnSubmitOrder = 'customer_checkout__button-submit-order';
+
+export const ordersElementOrderId = (id) => (
+  `customer_orders__element-order-id-${id}`);
+
+export const ordersElementDeliveryStatus = (id) => (
+  `customer_orders__element-delivery-status-${id}`);
+
+export const ordersElementOrderDate = (id) => (
+  `customer_orders__element-order-date-${id}`);
+
+export const ordersElementCardPrice = (id) => (
+  `customer_orders__element-card-price-${id}`);
