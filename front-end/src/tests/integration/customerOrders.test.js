@@ -70,7 +70,6 @@ describe('Testes da página de Detalhes do Pedido', () => {
 
     const navBarCustomerProducts = screen.getByTestId(dataTestId.navBarCustomerProducts);
     const navBarCustomerOrders = screen.getByTestId(dataTestId.navBarCustomerOrders);
-    userEvent.click(navBarCustomerOrders);
     const navBarFullName = screen.getByTestId(dataTestId.navBarFullName);
     const navBarLogout = screen.getByTestId(dataTestId.navBarLogout);
 
