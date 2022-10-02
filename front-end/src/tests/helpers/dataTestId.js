@@ -71,3 +71,36 @@ export const ordersElementOrderDate = (id) => (
 
 export const ordersElementCardPrice = (id) => (
   `customer_orders__element-card-price-${id}`);
+
+export const orderDetailsLabelOrderId = (
+  'customer_order_details__element-order-details-label-order-id');
+
+export const orderDetailsLabelSellerName = (
+  'customer_order_details__element-order-details-label-seller-name');
+
+export const orderDetailsLabelOrderDate = (
+  'customer_order_details__element-order-details-label-order-date');
+
+export const orderDetailsLabelDeliveryStatus = (
+  'customer_order_details__element-order-details-label-delivery-status');
+
+export const orderDetailsLabelDeliveryCheck = (
+  'customer_order_details__button-delivery-check');
+
+export const orderDetailsOrderTableItemNumber = (id) => (
+  `customer_order_details__element-order-table-item-number-${id}`);
+
+export const orderDetailsOrderTableName = (id) => (
+  `customer_order_details__element-order-table-name-${id}`);
+
+export const orderDetailsOrderTableQuantity = (id) => (
+  `customer_order_details__element-order-table-quantity-${id}`);
+
+export const orderDetailsOrderTableUnitPrice = (id) => (
+  `customer_order_details__element-order-table-unit-price-${id}`);
+
+export const orderDetailsOrderTableSubTotal = (id) => (
+  `customer_order_details__element-order-table-sub-total-${id}`);
+
+export const orderDetailsOrderTotalPrice = (id) => (
+  `customer_order_details__element-order-total-price${id}`);
