@@ -6,9 +6,9 @@ import Header from '../components/Header';
 import requestGetByIdSale from '../services/requestGetByIdSale';
 import getFromLocalStorage from '../helpers/getFromLocalStorage';
 import requestUpdateSaleStatus from '../services/requestUpdateSaleStatus';
+import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
 
 function CustomerOrders() {
-  const [shoppingCart, setShoppingCart] = useState([]);
   const [dates, setDates] = useState('');
   const [salesById, setSalesById] = useState({});
   const { id } = useParams();
@@ -17,7 +17,6 @@ function CustomerOrders() {
 
   useEffect(() => {
     const handle = async () => {
-      setShoppingCart(JSON.parse(localStorage.getItem('carrinho')) || []);
       const saleById = await requestGetByIdSale(token, id);
       const date = saleById.saleDate.slice(0, ten).split('-').reverse().join('/');
       console.log(date);
@@ -36,9 +35,35 @@ function CustomerOrders() {
     setSalesById(requestNewSale);
   };
 
+  const renderTable = () => (
+    <table className="border-separate border-spacing-2 border shadow">
+      <thead>
+        <tr>
+          <th className="border shadow px-2 rounded">Item</th>
+          <th className="border shadow px-2 rounded">Descrição</th>
+          <th className="border shadow px-2 rounded">Quabtidade</th>
+          <th className="border shadow px-2 rounded">Valor Unitário</th>
+          <th className="border shadow px-2 rounded">Sub-total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {(salesById.products) && (
+          salesById.products.map((element, i) => (
+            <ProductCheckoutTableRow
+              key={ i }
+              element={ element }
+              calculatesTotalPrice={ calculatesTotalPrice }
+              i={ i }
+            />
+          )))}
+      </tbody>
+    </table>
+  );
+
   const dataIdName = 'customer_order_details__element-order-details-label-seller-name';
   const dataIdDate = 'customer_order_details__element-order-details-label-order-date';
   const idStatus = 'customer_order_details__element-order-details-label-delivery-status';
+
   return (
     <div>
       <Header />
@@ -67,25 +92,13 @@ function CustomerOrders() {
           disabled={ salesById.status !== 'Em Trânsito' }
         >
           MARCAR COMO ENTREGUE
-
         </button>
-        <tbody>
-          {shoppingCart?.map((element, i) => (
-            <ProductCheckoutTableRow
-              key={ i }
-              element={ element }
-              shoppingCart={ shoppingCart }
-              setShoppingCart={ setShoppingCart }
-              calculatesTotalPrice={ calculatesTotalPrice }
-              i={ i }
-            />
-          ))}
-        </tbody>
       </div>
+      {renderTable()}
       <p
         data-testid="customer_order_details__element-order-total-price"
       >
-        {(calculatesTotalPrice(shoppingCart).toFixed(2)).replace('.', ',')}
+        {convertToBrazilianCurrency(salesById.totalPrice)}
 
       </p>
     </div>
