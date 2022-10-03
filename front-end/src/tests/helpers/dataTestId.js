@@ -102,5 +102,5 @@ export const orderDetailsOrderTableUnitPrice = (id) => (
 export const orderDetailsOrderTableSubTotal = (id) => (
   `customer_order_details__element-order-table-sub-total-${id}`);
 
-export const orderDetailsOrderTotalPrice = (id) => (
-  `customer_order_details__element-order-total-price${id}`);
+export const orderDetailsOrderTotalPrice = (
+  'customer_order_details__element-order-total-price');
