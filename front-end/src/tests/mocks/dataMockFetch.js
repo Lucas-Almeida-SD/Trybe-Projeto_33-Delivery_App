@@ -11,9 +11,11 @@ const getAllSalesByCustomerURL = 'http://localhost:3001/sales';
 const getAllSalesBySellerURL = 'http://localhost:3001/sales/seller';
 const getSaleByIdURL = /^http:\/\/localhost:3001\/sales\/[0-9]{1,}$/;
 const getAllSellersURL = 'http://localhost:3001/user/seller';
+const updateSaleURL = /^http:\/\/localhost:3001\/sales\/[0-9]{1,}$/;
 
 const methodGET = 'GET';
 const methodPOST = 'POST';
+const methodPATCH = 'PATCH';
 
 // eslint-disable-next-line react-func/max-lines-per-function
 const mockFetchSuccess = (url, options) => {
@@ -63,11 +65,20 @@ const mockFetchSuccess = (url, options) => {
   const splitURL = url.split('/');
   const id = splitURL[splitURL.length - 1];
 
-  if (getSaleByIdURL.test(url)) {
+  if (getSaleByIdURL.test(url) && options.method === methodGET) {
     const findSale = sales.find((sale) => sale.id === Number(id));
 
     return Promise.resolve({
       json: () => Promise.resolve(findSale),
+    });
+  }
+
+  if (updateSaleURL.test(url) && options.method === methodPATCH) {
+    const findSale = sales.find((sale) => sale.id === Number(id));
+    const { status } = JSON.parse(options.body);
+
+    return Promise.resolve({
+      json: () => Promise.resolve({ ...findSale, status }),
     });
   }
 };
