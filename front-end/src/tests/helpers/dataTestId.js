@@ -104,3 +104,18 @@ export const orderDetailsOrderTableSubTotal = (id) => (
 
 export const orderDetailsOrderTotalPrice = (
   'customer_order_details__element-order-total-price');
+
+export const sellerOrdersElementOrderId = (id) => (
+  `seller_orders__element-order-id-${id}`);
+
+export const sellerOrdersElementDeliveryStatus = (id) => (
+  `seller_orders__element-delivery-status-${id}`);
+
+export const sellerOrdersElementOrderDate = (id) => (
+  `seller_orders__element-order-date-${id}`);
+
+export const sellerOrdersElementCardPrice = (id) => (
+  `seller_orders__element-card-price-${id}`);
+
+export const sellerOrdersElementCardAddress = (id) => (
+  `seller_orders__element-card-address-${id}`);
