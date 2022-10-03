@@ -8,11 +8,21 @@ import * as dataTestId from '../helpers/dataTestId';
 import * as routes from '../helpers/routes';
 import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
 import sales from '../helpers/sales.json';
+import salesExample from '../helpers/sales.example.json';
+import fs from 'fs';
+import path from 'path';
 
 describe('Testes da página de Detalhes do Pedido', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
+  });
+
+  afterEach(() => {
+    fs.writeFileSync(
+      path.resolve(__dirname, '..', 'helpers', 'sales.json'),
+      JSON.stringify(salesExample),
+    );
   });
 
   const firstSale = sales[0];
@@ -417,6 +427,10 @@ describe('Testes da página de Detalhes do Pedido', () => {
     expect(orderDetailsLabelDeliveryCheck).toBeEnabled();
 
     userEvent.click(orderDetailsLabelDeliveryCheck);
+
+    await waitFor(() => {
+      expect(orderDetailsLabelDeliveryStatus).toHaveTextContent('Entregue');
+    });
   });
 
   it('Botão de marcar como entregue deve estar desabilitado quando o status do pedido for "Entregue"', async () => {
