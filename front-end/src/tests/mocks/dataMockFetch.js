@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import products from '../helpers/products';
 import sales from '../helpers/sales.json';
 import users from '../helpers/users';
@@ -74,11 +76,18 @@ const mockFetchSuccess = (url, options) => {
   }
 
   if (updateSaleURL.test(url) && options.method === methodPATCH) {
-    const findSale = sales.find((sale) => sale.id === Number(id));
+    const findSaleIndex = sales.findIndex((sale) => sale.id === Number(id));
     const { status } = JSON.parse(options.body);
 
+    sales[findSaleIndex] = { ...sales[findSaleIndex], status };
+
+    fs.writeFileSync(
+      path.resolve(__dirname, '..', 'helpers', 'sales.json'),
+      JSON.stringify(sales),
+    );
+
     return Promise.resolve({
-      json: () => Promise.resolve({ ...findSale, status }),
+      json: () => Promise.resolve(sales[findSaleIndex]),
     });
   }
 };
