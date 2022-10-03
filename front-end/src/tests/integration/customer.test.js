@@ -8,7 +8,7 @@ import * as dataTestId from '../helpers/dataTestId';
 import * as routes from '../helpers/routes';
 import products from '../helpers/products';
 import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
-import sales from '../helpers/sales';
+import sales from '../helpers/sales.json';
 
 describe('Testes da página do Consumidor', () => {
   beforeEach(() => {

@@ -7,7 +7,7 @@ import dataMockLogin from '../mocks/dataMockLogin';
 import * as dataTestId from '../helpers/dataTestId';
 import * as routes from '../helpers/routes';
 import convertToBrazilianCurrency from '../helpers/convertToBrazilianCurrency';
-import sales from '../helpers/sales';
+import sales from '../helpers/sales.json';
 import convertDate from '../helpers/convertDate';
 
 describe('Testes da página de Pedidos do Consumidor', () => {

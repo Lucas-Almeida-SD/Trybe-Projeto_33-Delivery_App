@@ -1,5 +1,5 @@
 import products from '../helpers/products';
-import sales from '../helpers/sales';
+import sales from '../helpers/sales.json';
 import users from '../helpers/users';
 import sellers from '../helpers/sellers';
 
