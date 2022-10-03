@@ -62,6 +62,10 @@ function ProductCheckoutTableRow(props) {
   );
 }
 
+ProductCheckoutTableRow.defaultProps = {
+  setShoppingCart: undefined,
+};
+
 ProductCheckoutTableRow.propTypes = {
   element: PropTypes.shape({
     id: PropTypes.number,
@@ -69,7 +73,7 @@ ProductCheckoutTableRow.propTypes = {
     price: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
   }).isRequired,
-  setShoppingCart: PropTypes.func.isRequired,
+  setShoppingCart: PropTypes.func,
   i: PropTypes.number.isRequired,
 };
 
