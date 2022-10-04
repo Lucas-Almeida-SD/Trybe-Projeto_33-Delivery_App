@@ -119,3 +119,36 @@ export const sellerOrdersElementCardPrice = (id) => (
 
 export const sellerOrdersElementCardAddress = (id) => (
   `seller_orders__element-card-address-${id}`);
+
+export const sellerOrderDetailsLabelOrderId = (
+  'seller_order_details__element-order-details-label-order-id');
+
+export const sellerOrderDetailsLabelOrderDate = (
+  'seller_order_details__element-order-details-label-order-date');
+
+export const sellerOrderDetailsLabelDeliveryStatus = (
+  'seller_order_details__element-order-details-label-delivery-status');
+
+export const sellerOrderDetailsLabelPreparingCheck = (
+  'seller_order_details__button-preparing-check');
+
+export const sellerOrderDetailsLabelDispatchCheck = (
+  'seller_order_details__button-dispatch-check');
+
+export const sellerOrderDetailsTableItemNumber = (index) => (
+  `seller_order_details__element-order-table-item-number-${index}`);
+
+export const sellerOrderDetailsTableName = (index) => (
+  `seller_order_details__element-order-table-name-${index}`);
+
+export const sellerOrderDetailsTableQuantity = (index) => (
+  `seller_order_details__element-order-table-quantity-${index}`);
+
+export const sellerOrderDetailsTableUnitPrice = (index) => (
+  `seller_order_details__element-order-table-unit-price-${index}`);
+
+export const sellerOrderDetailsOrderTableSubTotal = (index) => (
+  `seller_order_details__element-order-table-sub-total-${index}`);
+
+export const sellerOrderDetailsTotalPrice = (
+  'seller_order_details__element-order-total-price');
