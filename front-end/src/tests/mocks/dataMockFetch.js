@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import products from '../helpers/products';
-import sales from '../helpers/sales.json';
 import users from '../helpers/users';
 import sellers from '../helpers/sellers';
 
@@ -19,6 +18,19 @@ const methodGET = 'GET';
 const methodPOST = 'POST';
 const methodPATCH = 'PATCH';
 
+const writeSalesInFile = (sales) => (
+  fs.writeFileSync(
+    path.resolve(__dirname, '..', 'helpers', 'sales.json'),
+    JSON.stringify(sales),
+  )
+);
+
+const readSalesInFile = () => (
+  JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '..', 'helpers', 'sales.json')),
+  )
+);
+
 // eslint-disable-next-line react-func/max-lines-per-function
 const mockFetchSuccess = (url, options) => {
   if (url === loginURL) {
@@ -35,6 +47,8 @@ const mockFetchSuccess = (url, options) => {
   }
 
   if (url === createSaleURL && options.method === methodPOST) {
+    const sales = readSalesInFile();
+
     return Promise.resolve({
       json: () => Promise.resolve(sales[0]),
     });
@@ -47,12 +61,16 @@ const mockFetchSuccess = (url, options) => {
   }
 
   if (url === getAllSalesByCustomerURL && options.method === methodGET) {
+    const sales = readSalesInFile();
+
     return Promise.resolve({
       json: () => Promise.resolve(sales),
     });
   }
 
   if (url === getAllSalesBySellerURL) {
+    const sales = readSalesInFile();
+
     return Promise.resolve({
       json: () => Promise.resolve(sales),
     });
@@ -68,6 +86,8 @@ const mockFetchSuccess = (url, options) => {
   const id = splitURL[splitURL.length - 1];
 
   if (getSaleByIdURL.test(url) && options.method === methodGET) {
+    const sales = readSalesInFile();
+
     const findSale = sales.find((sale) => sale.id === Number(id));
 
     return Promise.resolve({
@@ -76,15 +96,14 @@ const mockFetchSuccess = (url, options) => {
   }
 
   if (updateSaleURL.test(url) && options.method === methodPATCH) {
-    const findSaleIndex = sales.findIndex((sale) => sale.id === Number(id));
+    const sales = readSalesInFile();
     const { status } = JSON.parse(options.body);
+
+    const findSaleIndex = sales.findIndex((sale) => sale.id === Number(id));
 
     sales[findSaleIndex] = { ...sales[findSaleIndex], status };
 
-    fs.writeFileSync(
-      path.resolve(__dirname, '..', 'helpers', 'sales.json'),
-      JSON.stringify(sales),
-    );
+    writeSalesInFile(sales);
 
     return Promise.resolve({
       json: () => Promise.resolve(sales[findSaleIndex]),
