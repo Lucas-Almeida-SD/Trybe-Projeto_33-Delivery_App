@@ -152,3 +152,13 @@ export const sellerOrderDetailsOrderTableSubTotal = (index) => (
 
 export const sellerOrderDetailsTotalPrice = (
   'seller_order_details__element-order-total-price');
+
+export const adminManageInputName = 'admin_manage__input-name';
+
+export const adminManageInputEmail = 'admin_manage__input-email';
+
+export const adminManageInputPassword = 'admin_manage__input-password';
+
+export const adminManageSelectRole = 'admin_manage__select-role';
+
+export const adminManageButtonRegister = 'admin_manage__button-register';
