@@ -16,6 +16,23 @@ class UserController {
     const result = await this.service.getAllByRole(role);
     res.status(200).json(result);
   }
+  
+  async registerAdmin(req, res) {
+    const user = req.body;
+    const result = await this.service.registerAdmin(user);
+    res.status(201).json(result);
+  }
+   
+  async getAllUser(req, res) {
+    const result = await this.service.getAllUser();
+    res.status(201).json(result);
+  }
+
+  async deleteUser(req, res) {
+    const { email } = req.body;
+     await this.service.deleteUser(email);
+    res.status(201).json('ko');
+  }
 }
 
 module.exports = new UserController();
