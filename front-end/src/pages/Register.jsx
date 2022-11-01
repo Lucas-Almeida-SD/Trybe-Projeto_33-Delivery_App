@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import requestCreateUser from '../services/requestCreateUser';
 import Notification from '../components/Notification';
-import * as registerFormValidate from '../validations/registerFormValidate';
+import * as registerFormValidate from '../validations/formValidate';
 import userRoutes from '../helpers/userRoutes';
 
 function Register() {

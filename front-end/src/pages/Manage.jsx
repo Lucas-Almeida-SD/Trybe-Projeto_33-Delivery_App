@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../components/Input';
 import getFromLocalStorage from '../helpers/getFromLocalStorage';
 import Notification from '../components/Notification';
-import * as registerFormValidate from '../validations/registerFormValidate';
+import * as registerFormValidate from '../validations/formValidate';
 // import userRoutes from '../helpers/userRoutes';
 import requestAdminCreateUser from '../services/requestAdminCreateUser';
 import Header from '../components/Header';
