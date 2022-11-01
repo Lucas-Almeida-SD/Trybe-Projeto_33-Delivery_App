@@ -21,7 +21,9 @@ function CustomerOrders() {
   return (
     <div>
       <Header />
-      <CardOrder sales={ sales } page="customer" />
+      <section>
+        <CardOrder sales={ sales } page="customer" />
+      </section>
     </div>
   );
 }
