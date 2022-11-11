@@ -1,7 +1,7 @@
 # Projeto Delivery App
 
 Esse projeto foi realizado para exercitar o que foi aprendido no Módulo de Back End do curso da [Trybe](https://www.betrybe.com/), ou seja, todos os assuntos abordados durante o módulo, como `Docker`, `MySQL`, `NodeJs`, `arquitetura de software MSC`, `ORM Sequelize`, `autenticação com JWT`, `testes de integração`, `TypeScript`, `Programação Orientada a Objeto (POO)` e `princípios SOLID`.
-Todo projeto foi desenvolvido em equipe, no qual meu colegas de projeto foram:
+Todo projeto foi desenvolvido em equipe, no qual meus colegas de projeto foram:
 
 - [Ítalo Lima](https://github.com/Italo9)
 - [Kleverson Eller](https://github.com/KleversonEller)
@@ -19,7 +19,7 @@ A parte de `Front-end` é baseada em uma `Single Page Aplication`, composta de 4
 
 - Fluxo do Vendedor: composto pelas páginas de __pedidos__ e __detalhes do pedido__;
 
-- Fluco da Administrador: composto pela página de __usuários__.
+- Fluxo da Administrador: composto pela página de __usuários__.
 
 ## Tecnologias
 
@@ -62,7 +62,7 @@ Recomendações:
 
 ___
 
-Será necessário possuir o SGBD MySQL instalado em sua máquina.
+Será necessário possuir o SGBD `MySQL` instalado em sua máquina.
 
 ___
 
