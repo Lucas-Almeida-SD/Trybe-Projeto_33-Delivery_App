@@ -15,11 +15,11 @@ A parte de `Front-end` é baseada em uma `Single Page Aplication`, composta de 4
 
 - Fluxo comum - composto pelas páginas de __login__ e __cadastro__;
 
-- Fluxo do Cliente: composto pelas páginas de __produtos__, __checkout__, __pedidos__ e __detalhes do pedido__;
+- Fluxo da Pessoa Cliente: composto pelas páginas de __produtos__, __checkout__, __pedidos__ e __detalhes do pedido__;
 
-- Fluxo do Vendedor: composto pelas páginas de __pedidos__ e __detalhes do pedido__;
+- Fluxo da Pessoa Vendedora: composto pelas páginas de __pedidos__ e __detalhes do pedido__;
 
-- Fluxo da Administrador: composto pela página de __usuários__.
+- Fluxo da Pessoa Administradora: composto pela página de __usuários__.
 
 ## Tecnologias
 
